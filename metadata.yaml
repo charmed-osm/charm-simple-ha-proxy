@@ -3,8 +3,11 @@ summary: A simple example proxy charm
 description: |
     Simple proxy charm is an example charm used in OSM Hackfests
 series:
-- xenial
 - bionic
+- xenial
+#- kubernetes
+# deployment:
+#   mode: operator
 peers:
   proxypeer:
     interface: proxypeer

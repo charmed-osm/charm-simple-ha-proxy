@@ -60,27 +60,24 @@ class SimpleHAProxyCharm(CharmBase):
             self.state.is_started = True
 
         # Register all of the events we want to observe
-        for event in (
-            # Charm events
-            self.on.config_changed,
-            self.on.install,
-            self.on.start,
-            self.on.upgrade_charm,
-            # Charm actions (primitives)
-            self.on.touch_action,
-            # OSM actions (primitives)
-            self.on.start_action,
-            self.on.stop_action,
-            self.on.restart_action,
-            self.on.reboot_action,
-            self.on.upgrade_action,
-            # SSH Proxy actions (primitives)
-            self.on.generate_ssh_key_action,
-            self.on.get_ssh_public_key_action,
-            self.on.run_action,
-            self.on.verify_ssh_credentials_action,
-        ):
-            self.framework.observe(event, self)
+        # Charm events
+        self.framework.observe(self.on.config_changed, self)
+        self.framework.observe(self.on.install, self)
+        self.framework.observe(self.on.start, self)
+        self.framework.observe(self.on.upgrade_charm, self)
+        # Charm actions (primitives)
+        self.framework.observe(self.on.touch_action, self)
+        # OSM actions (primitives)
+        self.framework.observe(self.on.start_action, self)
+        self.framework.observe(self.on.stop_action, self)
+        self.framework.observe(self.on.restart_action, self)
+        self.framework.observe(self.on.reboot_action, self)
+        self.framework.observe(self.on.upgrade_action, self)
+        # SSH Proxy actions (primitives)
+        self.framework.observe(self.on.generate_ssh_key_action, self)
+        self.framework.observe(self.on.get_ssh_public_key_action, self)
+        self.framework.observe(self.on.run_action, self)
+        self.framework.observe(self.on.verify_ssh_credentials_action, self)
 
         self.framework.observe(self.on.proxypeer_relation_changed, self)
 
@@ -117,7 +114,7 @@ class SimpleHAProxyCharm(CharmBase):
             unit.status = BlockedStatus("Invalid SSH credentials.")
 
     def on_install(self, event):
-        pass
+        SSHProxy.install()
 
     def on_start(self, event):
         """Called when the charm is being installed"""
