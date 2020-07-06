@@ -17,7 +17,11 @@ To configure the charm, you'll need to have an SSH-accessible machine. You'll ne
 
 To deploy to juju:
 ```
-juju deploy . --config ssh-hostname=10.135.22.x --config ssh-username=ubuntu --config ssh-password=ubuntu
+charmcraft build
+juju deploy simple-ha-proxy.charm \
+  --config ssh-hostname=10.135.22.x \
+  --config ssh-username=ubuntu \
+  --config ssh-password=ubuntu
 ```
 
 ```
